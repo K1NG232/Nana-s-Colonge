@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nana's Cologne</title>
+    <!-- 
+        We are using Tailwind CSS to make styling super easy.
+        It uses pre-made classes like 'bg-gray-800' for colors and 'rounded-xl' for rounded corners.
+        This link pulls in the library from a CDN (Content Delivery Network).
+    -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use a modern font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Keyframes for a smooth fade-in animation */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+        /* Apply the animation to the main container when the page loads */
+        .page-fade-in {
+            animation: fadeIn 1.0s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- 
+        This is the main container for the website. 
+        We added the 'page-fade-in' class to trigger the animation.
+    -->
+    <div class="container mx-auto p-4 sm:p-8 page-fade-in">
+
+        <!-- Header and Navigation Bar -->
+        <header class="flex flex-col sm:flex-row justify-between items-center py-4 px-6 mb-8 bg-white rounded-xl shadow-lg">
+            <!-- Website Logo or Name -->
+            <a href="#" class="text-2xl font-bold text-indigo-600 mb-4 sm:mb-0">Nana's Cologne</a>
+
+            <!-- Navigation Links -->
+            <nav class="space-x-4 sm:space-x-6 text-sm sm:text-base">
+                <a href="#about" class="hover:text-indigo-600 transition-colors duration-300">About</a>
+                <a href="#products" class="hover:text-indigo-600 transition-colors duration-300">Products</a>
+                <a href="#contact" class="hover:text-indigo-600 transition-colors duration-300">Contact</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section - The big, welcoming section at the top -->
+        <section id="hero" class="text-center py-16 sm:py-24 bg-indigo-600 text-white rounded-xl shadow-lg mb-8">
+            <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight mb-4">Giving you good quality colognes that deliver to your homes</h1>
+            <p class="text-lg sm:text-xl max-w-2xl mx-auto mb-8 opacity-90">
+                Welcome to Nana's Cologne. We sell unique and refreshing fragrances for every occasion.
+            </p>
+            <!-- This button now links to the products section -->
+            <a href="#products" class="bg-white text-indigo-600 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 inline-block">
+                Explore Scents
+            </a>
+        </section>
+        
+        <!-- Products Section - A new section to showcase individual products -->
+        <section id="products" class="py-8 sm:py-16">
+            <h2 class="text-2xl sm:text-4xl font-bold text-center mb-10">Our Products</h2>
+            <!-- Grid for Product Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                
+                <!-- Product Card 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center transition-transform transform hover:scale-105">
+                    <!-- Placeholder image for the cologne bottle -->
+                    <img src="https://placehold.co/400x400/818cf8/ffffff?text=Cologne+1" alt="Cologne bottle" class="w-full h-auto rounded-lg mb-4">
+                    <h3 class="text-2xl font-semibold mb-2">Cologne Name</h3>
+                    <p class="text-gray-600 mb-4">
+                        Description of the cologne goes here.
+                    </p>
+                    <span class="text-xl font-bold text-indigo-600">$XX.XX</span>
+                    <!-- New "Buy Now" button -->
+                    <a href="#" class="mt-4 inline-block bg-indigo-600 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
+                        Buy Now
+                    </a>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center transition-transform transform hover:scale-105">
+                    <img src="https://placehold.co/400x400/c4b5fd/ffffff?text=Cologne+2" alt="Cologne bottle" class="w-full h-auto rounded-lg mb-4">
+                    <h3 class="text-2xl font-semibold mb-2">Cologne Name</h3>
+                    <p class="text-gray-600 mb-4">
+                        Description of the cologne goes here.
+                    </p>
+                    <span class="text-xl font-bold text-indigo-600">$XX.XX</span>
+                    <!-- New "Buy Now" button -->
+                    <a href="#" class="mt-4 inline-block bg-indigo-600 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
+                        Buy Now
+                    </a>
+                </div>
+                
+                <!-- Product Card 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center transition-transform transform hover:scale-105">
+                    <img src="https://placehold.co/400x400/a78bfa/ffffff?text=Cologne+3" alt="Cologne bottle" class="w-full h-auto rounded-lg mb-4">
+                    <h3 class="text-2xl font-semibold mb-2">Cologne Name</h3>
+                    <p class="text-gray-600 mb-4">
+                        Description of the cologne goes here.
+                    </p>
+                    <span class="text-xl font-bold text-indigo-600">$XX.XX</span>
+                    <!-- New "Buy Now" button -->
+                    <a href="#" class="mt-4 inline-block bg-indigo-600 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
+                        Buy Now
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-8 sm:py-16">
+            <div class="bg-white p-6 sm:p-12 rounded-xl shadow-lg">
+                <h2 class="text-2xl sm:text-4xl font-bold text-center mb-6">Our Story</h2>
+                <p class="text-center text-lg text-gray-600 max-w-3xl mx-auto">
+                    Tell your story here. Explain why you're passionate about what you do, what your goals are,
+                    and why people should choose to work with you. Keep it personal and authentic.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-8 sm:py-16">
+            <div class="bg-indigo-700 text-white p-6 sm:p-12 rounded-xl shadow-lg">
+                <h2 class="text-2xl sm:text-4xl font-bold text-center mb-6">Get in Touch</h2>
+                <p class="text-center text-lg max-w-3xl mx-auto mb-8 opacity-90">
+                    Feel free to reach out with any questions or project ideas.
+                </p>
+                <!--
+                    This form uses a service called Formspree. It's free and easy.
+                    1. Go to https://formspree.io and create a new form.
+                    2. Copy the unique URL they give you.
+                    3. Replace the `https://formspree.io/f/your-form-id` below with your URL.
+                    When someone submits the form, you'll get an email!
+                -->
+                <form action="https://formspree.io/f/your-form-id" method="POST" class="max-w-xl mx-auto space-y-4">
+                    <input type="text" name="name" placeholder="Your Name" class="w-full p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                    <input type="email" name="_replyto" placeholder="Your Email" class="w-full p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                    <textarea name="message" placeholder="Your Message" rows="4" class="w-full p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-300"></textarea>
+                    <button type="submit" class="w-full bg-white text-indigo-600 font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-gray-200 transition-colors duration-300">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 py-6 text-sm mt-8">
+            <p>&copy; 2025 Nana's Cologne. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
