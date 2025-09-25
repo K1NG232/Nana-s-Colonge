@@ -1,165 +1,299 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nana's Cologne</title>
-    <!-- 
-        We are using Tailwind CSS to make styling super easy.
-        It uses pre-made classes like 'bg-gray-800' for colors and 'rounded-xl' for rounded corners.
-        This link pulls in the library from a CDN (Content Delivery Network).
-    -->
+    <title>Scentz - Discover Your Signature Fragrance</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Use a modern font from Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            /* Keyframes for a smooth fade-in animation */
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
+            background-color: #0d1a1e; /* Dark teal background */
+            color: #e0f2f1; /* Off-white text for contrast */
         }
-        /* Apply the animation to the main container when the page loads */
-        .page-fade-in {
-            animation: fadeIn 1.0s ease-out forwards;
+
+        .logo-font {
+            font-family: 'Lora', serif;
         }
+
+        /* Custom teal color scheme for Tailwind */
+        .bg-primary-teal { background-color: #004d40; }
+        .bg-secondary-teal { background-color: #00796b; }
+        .text-accent-teal { color: #4db6ac; }
+        .border-accent-teal { border-color: #4db6ac; }
+        .shadow-teal { box-shadow: 0 10px 15px -3px rgba(0, 77, 64, 0.3), 0 4px 6px -2px rgba(0, 77, 64, 0.15); }
+
+        /* Animation for elements fading in on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Glassmorphism effect for the header */
+        .glass-header {
+            background: rgba(13, 26, 30, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 77, 64, 0.2);
+        }
+        
+        /* Custom gradient text */
+        .gradient-text {
+            background: linear-gradient(to right, #4db6ac, #e0f2f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 77, 64, 0.4), 0 10px 10px -5px rgba(0, 77, 64, 0.2);
+        }
+
+        #intro-overlay {
+            transition: opacity 0.5s ease-out;
+        }
+
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="overflow-x-hidden">
 
-    <!-- 
-        This is the main container for the website. 
-        We added the 'page-fade-in' class to trigger the animation.
-    -->
-    <div class="container mx-auto p-4 sm:p-8 page-fade-in">
-
-        <!-- Header and Navigation Bar -->
-        <header class="flex flex-col sm:flex-row justify-between items-center py-4 px-6 mb-8 bg-white rounded-xl shadow-lg">
-            <!-- Website Logo or Name -->
-            <a href="#" class="text-2xl font-bold text-indigo-600 mb-4 sm:mb-0">Nana's Cologne</a>
-
-            <!-- Navigation Links -->
-            <nav class="space-x-4 sm:space-x-6 text-sm sm:text-base">
-                <a href="#about" class="hover:text-indigo-600 transition-colors duration-300">About</a>
-                <a href="#products" class="hover:text-indigo-600 transition-colors duration-300">Products</a>
-                <a href="#contact" class="hover:text-indigo-600 transition-colors duration-300">Contact</a>
-            </nav>
-        </header>
-
-        <!-- Hero Section - The big, welcoming section at the top -->
-        <section id="hero" class="text-center py-16 sm:py-24 bg-indigo-600 text-white rounded-xl shadow-lg mb-8">
-            <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight mb-4">Giving you good quality colognes that deliver to your homes</h1>
-            <p class="text-lg sm:text-xl max-w-2xl mx-auto mb-8 opacity-90">
-                Welcome to Nana's Cologne. We sell unique and refreshing fragrances for every occasion.
+    <!-- Welcome Intro -->
+    <div id="intro-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[100] p-4">
+        <div id="intro-modal" class="bg-primary-teal/80 border border-teal-800 rounded-2xl max-w-lg w-full p-8 text-center shadow-2xl shadow-teal reveal">
+            <h2 class="text-4xl font-bold gradient-text logo-font mb-4">Welcome to Scentz</h2>
+            <p class="text-gray-300 mb-8">
+                Your destination for curated, high-end fragrances. Explore our featured collections, learn about our passion for scents, and find your unique signature fragrance today.
             </p>
-            <!-- This button now links to the products section -->
-            <a href="#products" class="bg-white text-indigo-600 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 inline-block">
-                Explore Scents
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button id="skip-intro" class="w-full bg-secondary-teal text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition-all duration-300">
+                    Explore Now
+                </button>
+                <button id="remember-intro" class="w-full bg-transparent border border-accent-teal text-accent-teal font-bold py-3 px-6 rounded-lg hover:bg-accent-teal hover:text-white transition-all duration-300">
+                    Don't Show Again
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 p-4 transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-4xl font-bold text-white logo-font tracking-wider">Scentz</h1>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#hero" class="text-lg text-accent-teal hover:text-white transition-colors duration-300">Home</a>
+                <a href="#featured" class="text-lg text-accent-teal hover:text-white transition-colors duration-300">Featured</a>
+                <a href="#about" class="text-lg text-accent-teal hover:text-white transition-colors duration-300">About</a>
+                <a href="#contact" class="text-lg text-accent-teal hover:text-white transition-colors duration-300">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-accent-teal hover:text-white cursor-pointer transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                 <button class="md:hidden text-accent-teal">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1541697523112-9844a47b8e90?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600');">
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+        <div class="text-center z-10 p-4 reveal">
+            <h2 class="text-5xl md:text-7xl font-extrabold text-white mb-4 leading-tight">
+                Discover Your <span class="gradient-text">Signature Scent</span>
+            </h2>
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+                Curated collections of the world's finest fragrances. Unforgettable scents for the modern individual.
+            </p>
+            <a href="#featured" class="bg-secondary-teal text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-teal-700 transition-all duration-300 transform hover:scale-105 shadow-teal">
+                Explore Collection
             </a>
-        </section>
-        
-        <!-- Products Section - A new section to showcase individual products -->
-        <section id="products" class="py-8 sm:py-16">
-            <h2 class="text-2xl sm:text-4xl font-bold text-center mb-10">Our Products</h2>
-            <!-- Grid for Product Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="featured" class="py-20 md:py-32">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 reveal">
+                <h3 class="text-4xl md:text-5xl font-bold gradient-text mb-3">Featured Fragrances</h3>
+                <p class="text-lg text-gray-400">Hand-picked selections of our most popular and timeless scents.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 <!-- Product Card 1 -->
-                <div class="bg-white p-6 rounded-xl shadow-lg text-center transition-transform transform hover:scale-105">
-                    <!-- Placeholder image for the cologne bottle -->
-                    <img src="https://placehold.co/400x400/818cf8/ffffff?text=Cologne+1" alt="Cologne bottle" class="w-full h-auto rounded-lg mb-4">
-                    <h3 class="text-2xl font-semibold mb-2">Cologne Name</h3>
-                    <p class="text-gray-600 mb-4">
-                        Description of the cologne goes here.
-                    </p>
-                    <span class="text-xl font-bold text-indigo-600">$XX.XX</span>
-                    <!-- New "Buy Now" button -->
-                    <a href="#" class="mt-4 inline-block bg-indigo-600 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
-                        Buy Now
-                    </a>
+                <div class="product-card bg-primary-teal/50 backdrop-blur-sm p-6 rounded-2xl text-center border border-teal-800 reveal">
+                    <img src="https://placehold.co/400x400/004d40/e0f2f1?text=Scent+One" alt="Cologne Bottle 1" class="mx-auto mb-6 rounded-lg h-60 w-60 object-cover">
+                    <h4 class="text-2xl font-semibold text-white mb-2">Blank</h4>
+                    <p class="text-accent-teal mb-4">Blank</p>
+                    <p class="text-gray-400 mb-4 text-sm">Notes of marine, bergamot, and cedarwood. A fresh and aquatic classic.</p>
+                    <p class="text-3xl font-bold text-white mb-6">$35</p>
+                    <button class="w-full bg-secondary-teal text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition-all duration-300">Add to Cart</button>
                 </div>
 
                 <!-- Product Card 2 -->
-                <div class="bg-white p-6 rounded-xl shadow-lg text-center transition-transform transform hover:scale-105">
-                    <img src="https://placehold.co/400x400/c4b5fd/ffffff?text=Cologne+2" alt="Cologne bottle" class="w-full h-auto rounded-lg mb-4">
-                    <h3 class="text-2xl font-semibold mb-2">Cologne Name</h3>
-                    <p class="text-gray-600 mb-4">
-                        Description of the cologne goes here.
-                    </p>
-                    <span class="text-xl font-bold text-indigo-600">$XX.XX</span>
-                    <!-- New "Buy Now" button -->
-                    <a href="#" class="mt-4 inline-block bg-indigo-600 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
-                        Buy Now
-                    </a>
+                <div class="product-card bg-primary-teal/50 backdrop-blur-sm p-6 rounded-2xl text-center border border-teal-800 reveal" style="transition-delay: 200ms;">
+                    <img src="https://placehold.co/400x400/00796b/e0f2f1?text=Scent+Two" alt="Cologne Bottle 2" class="mx-auto mb-6 rounded-lg h-60 w-60 object-cover">
+                    <h4 class="text-2xl font-semibold text-white mb-2">Blank</h4>
+                    <p class="text-accent-teal mb-4">Blank</p>
+                    <p class="text-gray-400 mb-4 text-sm">A woody, aromatic fragrance with a captivating trail. For the man who defies convention.</p>
+                    <p class="text-3xl font-bold text-white mb-6">$45</p>
+                    <button class="w-full bg-secondary-teal text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition-all duration-300">Add to Cart</button>
                 </div>
-                
+
                 <!-- Product Card 3 -->
-                <div class="bg-white p-6 rounded-xl shadow-lg text-center transition-transform transform hover:scale-105">
-                    <img src="https://placehold.co/400x400/a78bfa/ffffff?text=Cologne+3" alt="Cologne bottle" class="w-full h-auto rounded-lg mb-4">
-                    <h3 class="text-2xl font-semibold mb-2">Cologne Name</h3>
-                    <p class="text-gray-600 mb-4">
-                        Description of the cologne goes here.
-                    </p>
-                    <span class="text-xl font-bold text-indigo-600">$XX.XX</span>
-                    <!-- New "Buy Now" button -->
-                    <a href="#" class="mt-4 inline-block bg-indigo-600 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300">
-                        Buy Now
-                    </a>
+                <div class="product-card bg-primary-teal/50 backdrop-blur-sm p-6 rounded-2xl text-center border border-teal-800 reveal" style="transition-delay: 400ms;">
+                    <img src="https://placehold.co/400x400/4db6ac/0d1a1e?text=Scent+Three" alt="Cologne Bottle 3" class="mx-auto mb-6 rounded-lg h-60 w-60 object-cover">
+                    <h4 class="text-2xl font-semibold text-white mb-2">Blank</h4>
+                    <p class="text-accent-teal mb-4">Blank</p>
+                    <p class="text-gray-400 mb-4 text-sm">A sophisticated blend of pineapple, blackcurrant, and birch. The scent of success.</p>
+                    <p class="text-3xl font-bold text-white mb-6">$50</p>
+                    <button class="w-full bg-secondary-teal text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition-all duration-300">Add to Cart</button>
                 </div>
-
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-8 sm:py-16">
-            <div class="bg-white p-6 sm:p-12 rounded-xl shadow-lg">
-                <h2 class="text-2xl sm:text-4xl font-bold text-center mb-6">Our Story</h2>
-                <p class="text-center text-lg text-gray-600 max-w-3xl mx-auto">
-                    Tell your story here. Explain why you're passionate about what you do, what your goals are,
-                    and why people should choose to work with you. Keep it personal and authentic.
+    <!-- About Section -->
+    <section id="about" class="py-20 md:py-32 bg-primary-teal/20">
+        <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+            <div class="reveal">
+                <img src="https://images.unsplash.com/photo-1620932939023-5d2051618629?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=2400" alt="Artistic shot of fragrance ingredients" class="rounded-2xl shadow-teal object-cover w-full h-full max-h-[500px]">
+            </div>
+            <div class="reveal">
+                <h3 class="text-4xl md:text-5xl font-bold gradient-text mb-6">The Essence of Scentz</h3>
+                <p class="text-lg text-gray-300 mb-4">
+                    Scentz was born from a passion for the art of fragrance. We believe that a signature scent is a form of self-expression, a personal statement that leaves a lasting impression.
+                </p>
+                <p class="text-lg text-gray-400">
+                    Our mission is to make the world of luxury colognes accessible to everyone. We meticulously source and curate authentic, high-end fragrances, offering them to you with the care and expertise they deserve. We're not just resellers; we are connoisseurs dedicated to helping you find the perfect scent that tells your story.
                 </p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-8 sm:py-16">
-            <div class="bg-indigo-700 text-white p-6 sm:p-12 rounded-xl shadow-lg">
-                <h2 class="text-2xl sm:text-4xl font-bold text-center mb-6">Get in Touch</h2>
-                <p class="text-center text-lg max-w-3xl mx-auto mb-8 opacity-90">
-                    Feel free to reach out with any questions or project ideas.
-                </p>
-                <!--
-                    This form uses a service called Formspree. It's free and easy.
-                    1. Go to https://formspree.io and create a new form.
-                    2. Copy the unique URL they give you.
-                    3. Replace the `https://formspree.io/f/your-form-id` below with your URL.
-                    When someone submits the form, you'll get an email!
-                -->
-                <form action="https://formspree.io/f/your-form-id" method="POST" class="max-w-xl mx-auto space-y-4">
-                    <input type="text" name="name" placeholder="Your Name" class="w-full p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-300">
-                    <input type="email" name="_replyto" placeholder="Your Email" class="w-full p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-300">
-                    <textarea name="message" placeholder="Your Message" rows="4" class="w-full p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-300"></textarea>
-                    <button type="submit" class="w-full bg-white text-indigo-600 font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-gray-200 transition-colors duration-300">
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 md:py-32">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <div class="text-center mb-12 reveal">
+                <h3 class="text-4xl md:text-5xl font-bold gradient-text mb-3">Get In Touch</h3>
+                <p class="text-lg text-gray-400">Have a question or a special request? We'd love to hear from you.</p>
+            </div>
+            <form class="space-y-6 reveal">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-accent-teal mb-2">Name</label>
+                    <input type="text" id="name" class="w-full bg-primary-teal/50 border border-teal-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-accent-teal focus:outline-none transition-all duration-300" placeholder="Your Name">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-accent-teal mb-2">Email</label>
+                    <input type="email" id="email" class="w-full bg-primary-teal/50 border border-teal-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-accent-teal focus:outline-none transition-all duration-300" placeholder="you@example.com">
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-accent-teal mb-2">Message</label>
+                    <textarea id="message" rows="5" class="w-full bg-primary-teal/50 border border-teal-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-accent-teal focus:outline-none transition-all duration-300" placeholder="Your message..."></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="bg-secondary-teal text-white font-bold py-3 px-12 rounded-full text-lg hover:bg-teal-700 transition-all duration-300 transform hover:scale-105 shadow-teal">
                         Send Message
                     </button>
-                </form>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary-teal/30 border-t border-teal-900 py-12">
+        <div class="container mx-auto px-4 text-center text-gray-400">
+            <h4 class="text-2xl font-bold gradient-text mb-4">Scentz</h4>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="hover:text-white transition-colors">Facebook</a>
+                <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                <a href="#" class="hover:text-white transition-colors">Twitter</a>
             </div>
-        </section>
+            <p>&copy; 2024 Scentz. All Rights Reserved. Crafted with passion.</p>
+        </div>
+    </footer>
 
-        <!-- Footer -->
-        <footer class="text-center text-gray-500 py-6 text-sm mt-8">
-            <p>&copy; 2025 Nana's Cologne. All rights reserved.</p>
-        </footer>
 
-    </div>
+    <script>
+        // JavaScript for on-scroll animations and header effect
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Intro Modal Logic ---
+            const introOverlay = document.getElementById('intro-overlay');
+            const introModal = document.getElementById('intro-modal');
+            const skipButton = document.getElementById('skip-intro');
+            const rememberButton = document.getElementById('remember-intro');
 
+            // Function to hide the intro
+            const hideIntro = () => {
+                introOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    introOverlay.style.display = 'none';
+                }, 500); // Match transition duration
+            };
+            
+            // Check if the user has chosen to not see the intro again
+            if (localStorage.getItem('scentzIntroDismissed') === 'true') {
+                introOverlay.style.display = 'none';
+            } else {
+                // Make sure it's visible on first load
+                introOverlay.style.display = 'flex';
+                // Trigger the animation
+                setTimeout(() => introModal.classList.add('visible'), 100);
+            }
+
+            // Event listener for the skip button
+            skipButton.addEventListener('click', hideIntro);
+
+            // Event listener for the 'remember' button
+            rememberButton.addEventListener('click', () => {
+                localStorage.setItem('scentzIntroDismissed', 'true');
+                hideIntro();
+            });
+
+
+            // 1. On-scroll reveal animation
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+
+            // 2. Header background effect on scroll
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('glass-header');
+                } else {
+                    header.classList.remove('glass-header');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
